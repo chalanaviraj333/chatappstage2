@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<mat-card>
+    <h1>Group Name</h1>
+
+
+</mat-card>
+
+<mat-card>
+    <mat-tab-group>
+  <mat-tab *ngFor="let channel of channels; let i = index"label={{channel.channelname}}> 
+
+    <h2>Add More Users</h2>
+            <mat-expansion-panel *ngFor="let user of users; let userIndex = index" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                {{user.username}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-button color="warn" (click)="addUsers(i, userIndex)">Add User</button>
+            </mat-expansion-panel>
+  </mat-tab>
+</mat-tab-group>
+
+</mat-card>

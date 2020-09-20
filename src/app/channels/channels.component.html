@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<mat-card>
+    <form (submit)="onChannelCreate(channelCreateForm)" #channelCreateForm="ngForm">
+        <mat-form-field id="channelnamefield" appearance="fill">
+            <input matInput type="text" ngModel name="channelname" placeholder="Channel name" #groupNameInput="ngModel" required>
+            <mat-error *ngIf="groupNameInput.invalid">Please enter a Group name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field id="rolefield" appearance="fill">
+            <mat-label>Group</mat-label>
+            <mat-select ngModel name="channelGroup">
+                <mat-option *ngFor="let group of groups" [value]="group.value">
+                  {{group.value}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <button mat-raised-button color="primary" id="button" type="submit">Create</button>
+
+    </form>
+
+</mat-card>
+
+
+<mat-card>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let channel of channels" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{channel.channelname}}
+            </mat-panel-title>
+            <mat-panel-description>
+            {{channel.channelGroup}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <button mat-button>Edit Channel</button>
+        <button mat-button color="warn">Delete Channel</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>
+
+

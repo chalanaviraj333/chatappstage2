@@ -1,0 +1,16 @@
+<mat-card>
+    <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
+        <mat-form-field id="usernamefield" appearance="fill">
+            <input matInput type="text" ngModel name="username" placeholder="Username" #usernameInput="ngModel" required >
+            <mat-error *ngIf="usernameInput.invalid">Please enter a valid Username</mat-error>
+        </mat-form-field>
+
+        <mat-form-field id="passwordfield" appearance="fill">
+            <input matInput type="password" name="password" ngModel placeholder="Password" #passwordInput="ngModel" required>
+            <mat-error *ngIf="passwordInput,invalid">Please enter a valid password</mat-error> 
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" id="button" type="submit">Login</button>
+
+    </form>
+</mat-card>

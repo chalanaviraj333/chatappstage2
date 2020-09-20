@@ -1,0 +1,19 @@
+<app-header></app-header>
+
+<mat-card>
+    <form (submit)="onChange(editUserForm)" #editUserForm="ngForm">
+    <h2>Username: {{editUser}}</h2>
+
+      <mat-form-field appearance="fill">
+        <mat-label>User Role</mat-label>
+        <mat-select ngModel name="userRole" [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="Super_Admin">Super Admin</mat-option>
+          <mat-option value="Group_Admin">Group Admin</mat-option>
+          <mat-option value="Group_Assis">Group Assis</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" id="button" [disabled]="userPermission" type="submit">Save Changes</button>
+    </form>
+</mat-card>

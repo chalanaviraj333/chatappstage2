@@ -1,0 +1,23 @@
+<form (submit)="onSubmit(chatForm)" #chatForm="ngForm">
+    <mat-form-field id="messagefield" appearance="fill">
+        <input matInput type="text" ngModel name="chatMessage" placeholder="Message" #messageInput="ngModel" required >
+        <mat-error *ngIf="messageInput.invalid">Please enter any message</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" id="button" type="submit">Submit</button>
+
+<mat-card>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let chat of chats" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+            {{chat.chatUser}}
+            </mat-panel-title>
+            <mat-panel-description>
+            {{chat.chatMessage}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>this must be the date</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>
