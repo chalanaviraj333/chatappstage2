@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { AuthserviceService } from '../authservice.service';
 
+
+import { HttpClient } from '@angular/common/http';
+
 // var userList = [];
 
 @Component({
@@ -15,7 +18,7 @@ export class SignupComponent implements OnInit {
 
   userPermission: boolean;
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private AuthService: AuthserviceService) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private AuthService: AuthserviceService, private http: HttpClient) {
 
       // userList = this.storage.get("NewUserList");
       // // console.log(userList);
@@ -26,10 +29,17 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSignup(form: NgForm) {
+  async onSignup(form: NgForm) {
 
-    this.AuthService.userSignup(form.value.username, form.value.email, form.value.userRole, form.value.password);
+    // alert('signed up')
+    // let serverresponse = await this.AuthService.userSignup(form.value.username, form.value.email, form.value.userRole, form.value.password);
+    // console.log(serverresponse);
 
+    const authData = {username: form.value.username, userRole: form.value.userRole, email: form.value.email, password: form.value.password};
+        this.http.post("http://localhost:3000/usersignup", authData)
+        .subscribe(response => {
+            //console.log(response);
+    })
     
     
   }

@@ -1,4 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
+
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { Key } from 'protractor';
@@ -16,7 +19,7 @@ export class AuthserviceService {
   public editUserIndex: number;
 
   
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router) {}
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router, private http: HttpClient) {}
 
     userLogin(username: string, password: string) {
     var userList = [];
@@ -51,13 +54,22 @@ export class AuthserviceService {
 
     userSignup(username: string, email: string, userRole: string, password: string){
 
-      var userID = this.storage.get('userCount') + 1;
+      // var userID = this.storage.get('userCount') + 1;
 
-      this.userList = this.storage.get('userList');
-      const newUser = {username, email, userRole, password, userID};
-      this.userList.push(newUser);
-      this.storage.set('userList', this.userList);
-      this.storage.set('userCount', userID+1);
+      // this.userList = this.storage.get('userList');
+      // const newUser = {username, email, userRole, password, userID};
+      // this.userList.push(newUser);
+      // this.storage.set('userList', this.userList);
+      // this.storage.set('userCount', userID+1);
+
+    //     const authData = {username: username, userRole: userRole, email: email, password: password};
+    //     this.http.post("http://localhost:3000/usersignup", authData)
+    //     .subscribe(response => {
+    //         // console.log(response);
+    //         return (response);
+    // })
+
+
     }
 
 
