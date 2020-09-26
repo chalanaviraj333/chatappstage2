@@ -3,6 +3,10 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { AuthserviceService } from '../authservice.service';
 import { Router } from '@angular/router';
 
+import { User } from '../user.model';
+
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-users',
@@ -11,17 +15,22 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
 
-  public users = [];
+  users: User[] = [];
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private AuthService: AuthserviceService,
-  private router: Router) {
+  private router: Router, private http: HttpClient) {
 
 
    }
 
   ngOnInit() {
 
-    this.users = this.storage.get('userList');
+    this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")
+    .subscribe(userData => {
+      this.users = userData.users;
+    });
+
+    // this.users = this.storage.get('userList');
 
 
   }

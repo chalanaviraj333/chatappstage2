@@ -8,6 +8,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UsersComponent } from './users/users.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { EditgroupComponent } from './editgroup/editgroup.component';
+import { ViewgroupComponent } from './viewgroup/viewgroup.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'groups', component: GroupsComponent},
   {path: 'channels', component: ChannelsComponent},
   {path: 'edituser', component: EdituserComponent},
-  {path: 'editgroup', component: EditgroupComponent}
+  {path: 'editgroup/:groupName', component: EditgroupComponent},
+  {path: 'viewgroup/:groupName', component: ViewgroupComponent}
 ];
 
 @NgModule({

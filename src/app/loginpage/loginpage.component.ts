@@ -4,6 +4,8 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { Router } from '@angular/router';
 import { AuthserviceService } from '../authservice.service';
 
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-loginpage',
@@ -14,7 +16,8 @@ import { AuthserviceService } from '../authservice.service';
 export class LoginpageComponent implements OnInit {
 
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router, private AuthService: AuthserviceService) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router, private AuthService: AuthserviceService,
+  private http: HttpClient) {
 
 
 
@@ -28,8 +31,27 @@ export class LoginpageComponent implements OnInit {
   onLogin(form: NgForm) {
  
 
-      this.AuthService.userLogin(form.value.username, form.value.password);
-      
+      // this.AuthService.userLogin(form.value.username, form.value.password);
+      if (form.invalid) {
+        return;
+    }
+      const loginData = {username: form.value.username, password: form.value.password};
+      this.http.post<{ message: string; validuser: boolean }>("http://localhost:3000/userlogin",loginData)
+      .subscribe(response => {
+        const validuser = response.validuser;
+          if ( validuser == true)
+          {
+            this.storage.set('loggeduser', form.value.username);
+            this.router.navigateByUrl('/mainpage');
+            
+            
+          }
+          else
+          {
+            alert('Invalid username or password');
+            console.log(response);
+          }
+      });
   }
 
 }

@@ -18,8 +18,11 @@
         <mat-expansion-panel *ngFor="let group of groups; let i = index" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-            {{group}}
+            {{group.groupname}}
             </mat-panel-title>
+            <mat-panel-description>
+            {{group.groupAdmin}}
+            </mat-panel-description>
         </mat-expansion-panel-header>
         <button mat-button (click)="editGroup(i)" >Edit Group</button>
         <button mat-button color="warn">Delete Group</button>

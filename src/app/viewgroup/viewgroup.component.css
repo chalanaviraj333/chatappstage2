@@ -8,15 +8,11 @@ ul {
     margin: 0;
 }
 
-/* ul {
+ul {
     display: flex;
-} */
+}
 
 li{
     padding: 1em;
     color: cadetblue;
-}
-
-.notin {
-    color: saddlebrown;
 }

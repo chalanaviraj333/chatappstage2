@@ -9,9 +9,9 @@
 
         <mat-form-field id="rolefield" appearance="fill">
             <mat-label>Group</mat-label>
-            <mat-select ngModel name="channelGroup">
-                <mat-option *ngFor="let group of groups" [value]="group.value">
-                  {{group.value}}
+            <mat-select ngModel name="groupname">
+                <mat-option *ngFor="let group of groups" [value]="group.groupname">
+                  {{group.groupname}}
                 </mat-option>
             </mat-select>
           </mat-form-field>
@@ -30,7 +30,7 @@
             {{channel.channelname}}
             </mat-panel-title>
             <mat-panel-description>
-            {{channel.channelGroup}}
+            {{channel.groupname}}
             </mat-panel-description>
         </mat-expansion-panel-header>
         <button mat-button>Edit Channel</button>

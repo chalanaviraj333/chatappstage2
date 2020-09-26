@@ -7,9 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatSelectModule, MatListModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatExpansionModule, MatSelectModule, MatListModule, MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDividerModule} from '@angular/material/divider';
 import { StorageServiceModule } from 'angular-webstorage-service';
 import { SignupComponent } from './signup/signup.component';
 import { MainpageComponent } from './mainpage/mainpage.component';
@@ -22,6 +24,8 @@ import { AuthserviceService } from './authservice.service';
 import { EdituserComponent } from './edituser/edituser.component';
 import { EditgroupComponent } from './editgroup/editgroup.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ViewgroupComponent } from './viewgroup/viewgroup.component';
+import { UseroptionComponent } from './useroption/useroption.component';
 
 
 @NgModule({
@@ -36,7 +40,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     ChannelsComponent,
     ChathistoryComponent,
     EdituserComponent,
-    EditgroupComponent
+    EditgroupComponent,
+    ViewgroupComponent,
+    UseroptionComponent
   ],
   imports: [
     BrowserModule,
@@ -48,14 +54,19 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatDividerModule,
+    MatIconModule,
     MatButtonToggleModule,
     MatSelectModule,
     MatListModule,
     FormsModule,
     StorageServiceModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
   ],
-  providers: [AuthserviceService],
+
+  entryComponents: [UseroptionComponent],
+  providers: [AuthserviceService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
