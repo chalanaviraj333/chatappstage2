@@ -6,10 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { Channel } from '../channel.model';
 import { MatDialog } from '@angular/material';
 import { UseroptionComponent } from '../useroption/useroption.component';
+import { RemoveuserfromgroupComponent } from '../removeuserfromgroup/removeuserfromgroup.component';
 import { SharedserviceService } from '../sharedservice.service';
 
 import { User } from '../user.model';
-import { groupDetails } from '../groupdetails';
 
 @Component({
   selector: 'app-editgroup',
@@ -19,12 +19,10 @@ import { groupDetails } from '../groupdetails';
 export class EditgroupComponent implements OnInit {
 
   channels: Channel[] = [];
-  users: User[] = [];
-  userList: User[] = [];
-  groupDetails: groupDetails[] = [];
-  usersnotinGroup = [];
-  usersinGroup = [];
-  groupname = '';
+  usersinGroup: User[] = [];
+  usersnotinGroup: User[] = [];
+  groupName: '';
+  groupname = {};
 
 
   constructor(private GroupService: GroupsService, private activatedroute: ActivatedRoute,
@@ -32,87 +30,58 @@ export class EditgroupComponent implements OnInit {
 
   ngOnInit() {
 
-    let groupname = '';
-
-
+    // get channellist of the group from the database
     this.activatedroute.params.subscribe(data => {
-      this.groupname = data['groupName'];
+      this.groupName = data['groupName'];
     });
-    const groupName = {groupname};
-
-    // this.GroupService.navigatetoGroup(groupname);
-
-      this.http.post<{ message: string; channelList: Channel[] }>("http://localhost:3000/navigategroup", groupName)
-          .subscribe(channelsData => {
-            this.channels = channelsData.channelList;
-            // console.log(this.channels);
+    this.groupname = {groupname: this.groupName};
+      this.http.post<{ message: string; channelsList: Channel[] }>("http://localhost:3000/getGroupChannels", this.groupname)
+          .subscribe(data => {
+            this.channels = data.channelsList;
           });
+    
 
+    // get userlist of the group from the database
+    this.activatedroute.params.subscribe(data => {
+      this.groupName = data['groupName'];
+    });
+    this.groupname = {groupname: this.groupName};
+      this.http.post<{ message: string; usersList: User[] }>("http://localhost:3000/getGroupUsers", this.groupname)
+          .subscribe(data => {
+            this.usersinGroup = data.usersList;
+          });
+    
 
-      // this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")
-      // .subscribe(userData => {
-      //     this.users = userData.users;
+    // get users who not in the group from the database
+    this.activatedroute.params.subscribe(data => {
+      this.groupName = data['groupName'];
+    });
+    this.groupname = {groupname: this.groupName};
+      this.http.post<{ message: string; usersList: User[] }>("http://localhost:3000/getGroupUsersnotin", this.groupname)
+          .subscribe(data => {
+            this.usersnotinGroup = data.usersList;
+          });
           
-      // });
+      
+  }
 
-      // this.http.get<{ message: string; groupDetails: groupDetails[] }>("http://localhost:3000/getgroupDetails")
-      // .subscribe(userData => {
-      //     this.groupDetails = userData.groupDetails;
-      // });
-
-      this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")
-      .subscribe(userData => {
-          this.users = userData.users;
-          this.userList = this.users;
-
-          this.http.get<{ message: string; groupDetails: groupDetails[] }>("http://localhost:3000/getgroupDetails")
-      .subscribe(userData => {
-          this.groupDetails = userData.groupDetails;
-
-
-          this.users.forEach(user => {
-            this.groupDetails.forEach(groupDetail => {
-              if (user.userID == groupDetail.userID)
-              {
-                this.usersinGroup.push(groupDetail);
-                this.userList.splice(this.userList.indexOf(user), 1);
-                console.log(this.users);
-              }
-              this.usersnotinGroup.push(user);
-              // console.log(this.usersnotinGroup);
-            });
-          });
-      });
-
+    // open dialog box funtion to add a user to the group
+    openDialogAdd(userIndex): void {
         
-
-      });
-      
-      // this.users.forEach(user => {
-      //   this.groupDetails.forEach(groupDetail => {
-      //     if (user.userID == groupDetail.userID)
-      //     {
-      //         this.usersnotinGroup.push(groupDetail);
-      //     }
-      //     else
-      //     {
-      //       this.usersinGroup.push(groupDetail);
-      //     }
-      //     console.log(this.usersinGroup);
-      //   });
-      // });
-      // console.log(this.usersnotinGroup);
-      
-    };
-
-    openDialog(userIndex): void {
-
-      const buildGroupDetails: groupDetails = {userID: this.users[userIndex].userID, username:this.users[userIndex].username, 
-        userRole: this.users[userIndex].userRole, groupname: this.groupname };
-      // this.groupDetails = this.users[userIndex].username;
-      // console.log(buildGroupDetails);
-      this.SharedService.sendData(buildGroupDetails);
+      const addingUser = {username: this.usersnotinGroup[userIndex], groupname: this.groupName};
+      this.SharedService.sendData(addingUser);
       const dialogRef = this.dialog.open(UseroptionComponent, {
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+      });
+    }
+
+    // open dialog box funtion to remove a user to the group
+    openDialogRemove(userIndex): void {
+      const removingUser = {username: this.usersinGroup[userIndex], groupname: this.groupName};
+      this.SharedService.sendData(removingUser);
+      const dialogRef = this.dialog.open(RemoveuserfromgroupComponent, {
       });
   
       dialogRef.afterClosed().subscribe(result => {

@@ -1,8 +1,10 @@
 <app-header></app-header>
 
-<h1>Username:</h1>
-<h2>Role</h2>
-<h3>Groups your are in</h3>
+<mat-card>
+    <h1>Hello {{username}}</h1>
+    <h3>Groups you are in</h3>
+</mat-card>
+
 <mat-card>
     <mat-accordion>
         <mat-expansion-panel *ngFor="let group of groups; let i = index" hideToggle>
@@ -16,7 +18,7 @@
         </mat-expansion-panel-header>
         <button mat-button (click)="viewGroup(i)" >View Group</button>
         <button mat-button (click)="editGroup(i)" >Edit Group</button>
-        <button mat-button color="warn">Delete Group</button>
+        <button mat-button color="warn" (click)="deleteGroup(i)">Delete Group</button>
         </mat-expansion-panel>
     </mat-accordion>
 </mat-card>

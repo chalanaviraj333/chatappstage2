@@ -1,28 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { groupDetails } from './groupdetails';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SharedserviceService {
 
-  // groupDetails: groupDetails[] = [];
-  groupDetails: groupDetails;
+  userandgroupdetails = {};
 
   constructor() { }
 
-  sendData(buildGroupDetails:groupDetails){
-    // this.groupDetails = [];
-    // this.groupDetails.push(buildGroupDetails);
-    // console.log(this.groupDetails);
-    this.groupDetails = buildGroupDetails;
-    // console.log(this.groupDetails);
+  sendData(addingUser: object){
+    this.userandgroupdetails = addingUser;
 
   }
 
   getData(){
-    return this.groupDetails;
+    return this.userandgroupdetails;
   }
 }
 

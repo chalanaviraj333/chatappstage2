@@ -5,15 +5,18 @@
 
 <span><h3>Users in Group: </h3></span>
 <ul *ngFor="let user of usersinGroup; let userIndex = index">
-    <li>{{user.username}}</li>   
+    <li>{{user.username}}
+    <button mat-icon-button (click)="openDialogRemove(userIndex)">
+      <mat-icon>remove</mat-icon>
+    </button></li>  
 </ul>
 
 <span><h3 class="notin">Users not in Group: </h3></span>
 
-<ul *ngFor="let user of users; let userIndex = index">
+<ul *ngFor="let user of usersnotinGroup; let userIndex = index">
   <li class="notin">{{user.username}}
-  <button mat-icon-button (click)="openDialog(userIndex)">
-    <mat-icon>edit</mat-icon>
+  <button mat-icon-button (click)="openDialogAdd(userIndex)">
+    <mat-icon>add</mat-icon>
   </button></li>
 </ul>
 

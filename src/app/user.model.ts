@@ -4,4 +4,6 @@ export interface User {
     userRole: string;
     email: string;
     password: string;
+    groups: string[];
+    channels: string[];
 }

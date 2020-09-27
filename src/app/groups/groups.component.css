@@ -22,3 +22,10 @@ mat-card {
     margin-right: 30%;
     margin-bottom: 5%;
 }
+
+#rolefield {
+    padding-top: 1em;
+    padding-right: 25%;
+    padding-left: 25%;
+    width: 50%;
+}

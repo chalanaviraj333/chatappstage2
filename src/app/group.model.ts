@@ -1,6 +1,6 @@
 export interface Group {
     groupname: string;
-    groupAdmin: [];
-    // groupAssis: string;
+    groupAdmin: string[];
+    groupAssis: string[];
 
 }

@@ -24,17 +24,6 @@ export class ChannelsComponent implements OnInit {
 
   ngOnInit() {
     
-    // this.channels = this.storage.get('channels');
-    // var groupsArray = this.storage.get('groups');
-    // groupsArray.forEach( group => {
-    //   this.groups.push({'value': group});
-    // });
-
-    // this.http.get<{ message: string; groups: Group[] }>("http://localhost:3000/getgroups")
-    // .subscribe(groupData => {
-    //   this.groups = groupData.groups;
-    // });
-
     const loggeduser = this.storage.get('loggeduser');
     const loggeddetails = {loggeduser};
     this.http.post<{ message: string; groupList: Group[] }>("http://localhost:3000/getgroups", loggeddetails)
@@ -52,8 +41,7 @@ export class ChannelsComponent implements OnInit {
   }
 
   onChannelCreate(form: NgForm){
-
-  //   this.AuthService.createChannel(form.value.channelname, form.value.channelGroup);
+    
   const newChannel = {groupname: form.value.groupname, channelname: form.value.channelname};
   console.log(newChannel);
   this.http.post("http://localhost:3000/createchannel", newChannel)

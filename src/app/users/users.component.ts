@@ -25,18 +25,23 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
 
+    // get all users from the database
     this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")
     .subscribe(userData => {
       this.users = userData.users;
     });
 
-    // this.users = this.storage.get('userList');
-
 
   }
 
   deleteUser(index){
-    this.AuthService.deleteUser(index);
+    const deleteuser = this.users[index].userID;
+    const deleteuserID = {deleteuser};
+    this.http.post<{ message: string }>("http://localhost:3000/deleteuser", deleteuserID)
+    .subscribe(data => {
+      console.log(data.message);
+    });
+    
   }
 
   editUser(index){

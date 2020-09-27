@@ -5,7 +5,9 @@ import { GroupsService } from '../groups.service';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 import { HttpClient } from '@angular/common/http';
+
 import { Group } from '../group.model';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-groups',
@@ -20,24 +22,35 @@ export class GroupsComponent implements OnInit {
   private GroupService: GroupsService, private http: HttpClient) { }
 
   ngOnInit() {
-
-    // this.http.get<{ message: string; groups: Group[] }>("http://localhost:3000/getgroups")
-    // .subscribe(groupData => {
-    //   this.groups = groupData.groups;
-    //   console.log(this.groups);
-    // });
-
-    // this.groups = this.storage.get('groups');
   }
 
   onGroupCreate(form: NgForm){
-      // this.AuthService.createGroup(form.value.groupname);
-      const groupadmin = [this.storage.get('loggeduser'), 'superadmin'];
-      const newGroup = {groupname: form.value.groupname, groupAdmin: groupadmin};
-      this.http.post("http://localhost:3000/creategroup", newGroup)
-      .subscribe(response => {
-          //console.log(response);
-        })
+    
+    // check who is logged in
+      const groupadmins = [];
+      const loggeduser = this.storage.get('loggeduser');
+      if (loggeduser == 'superadmin'){
+          groupadmins.push(loggeduser);
+      }
+      else
+      {
+        groupadmins.push(loggeduser, 'superadmin');
+      }
+      
+      // save new group to the database 
+      let newGroup: Group = {groupname: form.value.groupname, groupAdmin: groupadmins, groupAssis: []};
+      this.http.post<{ message: string }>("http://localhost:3000/creategroup", newGroup)
+      .subscribe(data => {
+          console.log(data.message);
+        });
+      
+      // update user details to match new added group
+      const groupname = form.value.groupname;
+      const sendData = {groupadmins, groupname}
+      this.http.post<{ message: string }>("http://localhost:3000/changegroupusers", sendData)
+      .subscribe(data => {
+          console.log(data.message);
+        });
   }
 
 

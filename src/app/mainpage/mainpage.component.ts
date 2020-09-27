@@ -17,6 +17,7 @@ import { Group } from '../group.model';
 export class MainpageComponent implements OnInit {
 
   groups: Group[] = [];
+  username = '';
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private router: Router,
    private AuthService: AuthserviceService, private GroupService: GroupsService, private http: HttpClient) {
@@ -26,38 +27,38 @@ export class MainpageComponent implements OnInit {
 
   ngOnInit() {
 
+    //get groups that user added in
+    this.username = this.storage.get('loggeduser');
     const loggeduser = this.storage.get('loggeduser');
     const loggeddetails = {loggeduser};
-    // this.AuthService.userPermission();
     this.http.post<{ message: string; groupList: Group[] }>("http://localhost:3000/getgroups", loggeddetails)
-    .subscribe(groupData => {
-      this.groups = groupData.groupList;
+    .subscribe(data => {
+      this.groups = data.groupList;
     });
 
 
-    // this.http.post("http://localhost:3000/getgroups", loggeddetails)
-    //     .subscribe(response => {
-    //         console.log(response);
-    // })
-
   }
 
-  // onSubmit(form: NgForm) {
-
-  //   this.AuthService.userMessage(form.value.chatMessage);
-
-  // }
-
   viewGroup(index){
+    // group view button funtion
     const groupName = this.groups[index].groupname;
-    // this.GroupService.navigatetoGroup(groupName);
     this.router.navigate(['/viewgroup', groupName]);
 }
 
   editGroup(index){
+    // group edit button funtion
     const groupName = this.groups[index].groupname;
     this.router.navigate(['/editgroup', groupName]);
-      // this.router.navigateByUrl('/editgroup');
+  }
+
+  deleteGroup(index){
+    // group delete button funtion
+    const groupname = this.groups[index].groupname;
+    const groupnameID = {groupname};
+    this.http.post<{message: string}>("http://localhost:3000/deletegroups", groupnameID)
+    .subscribe(data => {
+      console.log(data.message);
+    });
   }
 
 

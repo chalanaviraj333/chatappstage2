@@ -7,6 +7,14 @@
             <input matInput type="text" ngModel name="groupname" placeholder="Group name" #groupNameInput="ngModel" required>
             <mat-error *ngIf="groupNameInput.invalid">Please enter a Group name</mat-error>
         </mat-form-field>
+        <!-- <mat-form-field id="rolefield" appearance="fill">
+            <mat-label>Group Admin</mat-label>
+            <mat-select ngModel name="groupAdmin">
+                <mat-option *ngFor="let user of users" [value]="user.username">
+                  {{user.username}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field> -->
         <button mat-raised-button color="primary" id="button" type="submit">Create</button>
 
     </form>

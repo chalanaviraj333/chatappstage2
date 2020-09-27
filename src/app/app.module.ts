@@ -26,6 +26,7 @@ import { EditgroupComponent } from './editgroup/editgroup.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ViewgroupComponent } from './viewgroup/viewgroup.component';
 import { UseroptionComponent } from './useroption/useroption.component';
+import { RemoveuserfromgroupComponent } from './removeuserfromgroup/removeuserfromgroup.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { UseroptionComponent } from './useroption/useroption.component';
     EdituserComponent,
     EditgroupComponent,
     ViewgroupComponent,
-    UseroptionComponent
+    UseroptionComponent,
+    RemoveuserfromgroupComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,7 @@ import { UseroptionComponent } from './useroption/useroption.component';
     MatDialogModule
   ],
 
-  entryComponents: [UseroptionComponent],
+  entryComponents: [UseroptionComponent, RemoveuserfromgroupComponent],
   providers: [AuthserviceService,],
   bootstrap: [AppComponent]
 })

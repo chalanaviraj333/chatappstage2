@@ -5,35 +5,34 @@ import { SharedserviceService } from '../sharedservice.service';
 
 import { HttpClient } from '@angular/common/http';
 
-
 @Component({
-  selector: 'app-useroption',
-  templateUrl: './useroption.component.html',
-  styleUrls: ['./useroption.component.css']
+  selector: 'app-removeuserfromgroup',
+  templateUrl: './removeuserfromgroup.component.html',
+  styleUrls: ['./removeuserfromgroup.component.css']
 })
-export class UseroptionComponent implements OnInit {
+export class RemoveuserfromgroupComponent implements OnInit {
 
-  addingUser = {};
+  removingUser = {};
 
-  constructor(public dialogRef: MatDialogRef<UseroptionComponent>,
+  constructor(public dialogRef: MatDialogRef<RemoveuserfromgroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient, private activatedroute: ActivatedRoute,private SharedService: SharedserviceService) { }
 
   ngOnInit() {
 
-    this.addingUser = this.SharedService.getData();
+    this.removingUser = this.SharedService.getData();
   }
 
   cancel(){
     this.dialogRef.close();
   }
 
-  adduserfromGroup(){
+  removeuserfromGroup(){
 
-        this.http.post("http://localhost:3000/addgrouptotheuser", this.addingUser)
-        .subscribe(response => {
-            //console.log(response);
-    })
-    this.dialogRef.close();
-  }
+    this.http.post("http://localhost:3000/removegrouptotheuser", this.removingUser)
+    .subscribe(response => {
+        //console.log(response);
+})
+this.dialogRef.close();
+}
 
 }
