@@ -9,6 +9,8 @@ import { UsersComponent } from './users/users.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { EditgroupComponent } from './editgroup/editgroup.component';
 import { ViewgroupComponent } from './viewgroup/viewgroup.component';
+import { EdituserroleComponent } from './edituserrole/edituserrole.component';
+import { ChathistoryComponent } from './chathistory/chathistory.component';
 
 
 const routes: Routes = [
@@ -19,9 +21,11 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'groups', component: GroupsComponent},
   {path: 'channels', component: ChannelsComponent},
-  {path: 'edituser', component: EdituserComponent},
+  {path: 'edituser/:userName', component: EdituserComponent},
   {path: 'editgroup/:groupName', component: EditgroupComponent},
-  {path: 'viewgroup/:groupName', component: ViewgroupComponent}
+  {path: 'viewgroup/:groupName', component: ViewgroupComponent},
+  {path: 'edituserrole', component: EdituserroleComponent},
+  {path: 'chathistory', component:ChathistoryComponent}
 ];
 
 @NgModule({

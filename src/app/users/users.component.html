@@ -12,8 +12,8 @@
             {{user.email}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <button mat-button (click)="editUser(i)">Edit User</button>
-        <button mat-button color="warn" (click) ="deleteUser(i)">Delete User</button>
+        <button mat-button (click)="editUser(i)" disabled={{edituserbutton}}>Edit User</button>
+        <button mat-button color="warn" (click) ="deleteUser(i)" disabled= {{deleteuserbutton}}>Delete User</button>
         </mat-expansion-panel>
     </mat-accordion>
 </mat-card>

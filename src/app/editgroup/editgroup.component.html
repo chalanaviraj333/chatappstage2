@@ -1,40 +1,50 @@
 <app-header></app-header>
 
 <mat-card>
-<h1>Group Name:</h1>
+<h1>{{groupName}}</h1>
 
-<span><h3>Users in Group: </h3></span>
-<ul *ngFor="let user of usersinGroup; let userIndex = index">
+<h3>Your Role:   {{userRole}}</h3>
+
+<hr>
+
+<h3>Users in Group: </h3>
+<ul style="display: inline-block;" *ngFor="let user of usersinGroup; let userIndex = index">
     <li>{{user.username}}
-    <button mat-icon-button (click)="openDialogRemove(userIndex)">
-      <mat-icon>remove</mat-icon>
+    <button mat-icon-button (click)="openDialogRemove(userIndex)" disabled={{removegroupbutton}}>
+      <mat-icon color="warn">remove</mat-icon>
     </button></li>  
 </ul>
 
-<span><h3 class="notin">Users not in Group: </h3></span>
+<h3 class="notin">Users not in Group: </h3>
 
-<ul *ngFor="let user of usersnotinGroup; let userIndex = index">
-  <li class="notin">{{user.username}}
-  <button mat-icon-button (click)="openDialogAdd(userIndex)">
+<ul style="display: inline-block;" *ngFor="let user of usersnotinGroup; let userIndex = index">
+  <li>{{user.username}}
+  <button mat-icon-button (click)="openDialogAdd(userIndex)" disabled={{addgroupbutton}}>
     <mat-icon>add</mat-icon>
   </button></li>
 </ul>
 
-<span class="spacer"></span>
 
 </mat-card>
 <mat-card>
-    <mat-tab-group>
-  <mat-tab *ngFor="let channel of channels; let i = index"label={{channel.channelname}}> 
+    <mat-tab-group (selectedTabChange)="tabClick($event)">
+  <mat-tab *ngFor="let channel of channels; let i = index" label={{channel.channelname}}> 
 
-    <h2>Users in Channel</h2>
-            <mat-expansion-panel *ngFor="let user of users; let userIndex = index" hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                <!-- {{user.username}} -->
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <button mat-button color="warn" (click)="addUsers(i, userIndex)">Add User</button>
-            </mat-expansion-panel>
+    <h4>Users in Channel</h4>
+    <ul style="display: inline-block;" *ngFor="let user of usersinChannel; let userIndex = index">
+      <li>{{user.username}}
+      <button mat-icon-button (click)="openDialogRemoveFromChannel(userIndex)">
+        <mat-icon color="warn">remove</mat-icon>
+      </button></li>  
+    </ul>
+
+    <h4 class="notin">Users not in Channel</h4>
+    <ul style="display: inline-block;" *ngFor="let user of usersnotinChannel; let userIndex = index">
+      <li>{{user}}
+      <button mat-icon-button (click)="openDialogAddtoChannel(userIndex)">
+        <mat-icon>add</mat-icon>
+      </button></li>  
+    </ul>
   </mat-tab>
 </mat-tab-group>
+</mat-card>

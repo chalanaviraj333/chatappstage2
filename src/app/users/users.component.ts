@@ -16,6 +16,8 @@ import { HttpClient } from '@angular/common/http';
 export class UsersComponent implements OnInit {
 
   users: User[] = [];
+  deleteuserbutton: boolean = true;
+  edituserbutton: boolean = true;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private AuthService: AuthserviceService,
   private router: Router, private http: HttpClient) {
@@ -25,19 +27,47 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
 
+    const loggeddetails = {'loggeduser': this.storage.get('loggeduser')};
+    console.log(loggeddetails);
+
     // get all users from the database
     this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")
     .subscribe(userData => {
       this.users = userData.users;
+    });
+    
+    this.http.post<{ message: string; loggeduserDetails: User }>("http://localhost:3000/getloggeduserdetails", loggeddetails)
+    .subscribe(data => {
+      const userDetails: User = data.loggeduserDetails;
+
+      if (userDetails.userRole == 'superadmin')
+      {
+        this.deleteuserbutton = false;
+        this.edituserbutton = false;
+      }
+      else if (userDetails.userRole == 'groupadmin')
+      {
+        this.edituserbutton = false;
+      }
     });
 
 
   }
 
   deleteUser(index){
-    const deleteuser = this.users[index].userID;
-    const deleteuserID = {deleteuser};
-    this.http.post<{ message: string }>("http://localhost:3000/deleteuser", deleteuserID)
+    const deleteusername = {'deleteuser': this.users[index].username};
+    console.log(deleteusername)
+    this.http.post<{ message: string }>("http://localhost:3000/deleteuser", deleteusername)
+    .subscribe(data => {
+      console.log(data.message);
+    });
+
+    this.http.post<{ message: string }>("http://localhost:3000/deleteuserfromgroups", deleteusername)
+    .subscribe(data => {
+      console.log(data.message);
+    });
+
+    this.http.post<{ message: string }>("http://localhost:3000/deleteuserfromchannels", deleteusername)
     .subscribe(data => {
       console.log(data.message);
     });
@@ -45,8 +75,9 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(index){
-    this.AuthService.editUser(index);
-    this.router.navigateByUrl('/edituser');
+    // user edit button funtion
+    const userName = this.users[index].username;
+    this.router.navigate(['/edituser', userName]);
     
   }
 

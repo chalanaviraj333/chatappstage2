@@ -18,6 +18,9 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.storage.remove('loggeduser');
+    this.storage.remove('userRole');
+    this.storage.remove('group');
+    this.storage.remove('channel');
     this.router.navigateByUrl('/');
   }
 }

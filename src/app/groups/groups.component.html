@@ -7,15 +7,7 @@
             <input matInput type="text" ngModel name="groupname" placeholder="Group name" #groupNameInput="ngModel" required>
             <mat-error *ngIf="groupNameInput.invalid">Please enter a Group name</mat-error>
         </mat-form-field>
-        <!-- <mat-form-field id="rolefield" appearance="fill">
-            <mat-label>Group Admin</mat-label>
-            <mat-select ngModel name="groupAdmin">
-                <mat-option *ngFor="let user of users" [value]="user.username">
-                  {{user.username}}
-                </mat-option>
-            </mat-select>
-          </mat-form-field> -->
-        <button mat-raised-button color="primary" id="button" type="submit">Create</button>
+        <button mat-raised-button color="primary" id="button" type="submit" disabled={{groupcreate}}>Create</button>
 
     </form>
 </mat-card>
@@ -23,17 +15,17 @@
 
 <mat-card>
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let group of groups; let i = index" hideToggle>
+        <mat-expansion-panel *ngFor="let group of groupofAdmin; let i = index" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-            {{group.groupname}}
+            {{group}}
             </mat-panel-title>
             <mat-panel-description>
-            {{group.groupAdmin}}
+            <!-- {{group.admin}} -->
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <button mat-button (click)="editGroup(i)" >Edit Group</button>
-        <button mat-button color="warn">Delete Group</button>
+        <button mat-button (click)="editGroup(i)" disabled={{groupedit}}>Edit Group</button>
+        <button mat-button color="warn" (click)="deleteGroup(i)" disabled={{groupdelete}}>Delete Group</button>
         </mat-expansion-panel>
     </mat-accordion>
 </mat-card>

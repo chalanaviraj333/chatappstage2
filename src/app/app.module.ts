@@ -27,6 +27,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { ViewgroupComponent } from './viewgroup/viewgroup.component';
 import { UseroptionComponent } from './useroption/useroption.component';
 import { RemoveuserfromgroupComponent } from './removeuserfromgroup/removeuserfromgroup.component';
+import { EdituserroleComponent } from './edituserrole/edituserrole.component';
+import { RemoveuserchannelComponent } from './removeuserchannel/removeuserchannel.component';
+import { AddusertochannelComponent } from './addusertochannel/addusertochannel.component';
 
 
 @NgModule({
@@ -44,7 +47,10 @@ import { RemoveuserfromgroupComponent } from './removeuserfromgroup/removeuserfr
     EditgroupComponent,
     ViewgroupComponent,
     UseroptionComponent,
-    RemoveuserfromgroupComponent
+    RemoveuserfromgroupComponent,
+    EdituserroleComponent,
+    RemoveuserchannelComponent,
+    AddusertochannelComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +73,7 @@ import { RemoveuserfromgroupComponent } from './removeuserfromgroup/removeuserfr
     MatDialogModule
   ],
 
-  entryComponents: [UseroptionComponent, RemoveuserfromgroupComponent],
+  entryComponents: [UseroptionComponent, RemoveuserfromgroupComponent, RemoveuserchannelComponent, AddusertochannelComponent],
   providers: [AuthserviceService,],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<mat-card>
+
+<h2>{{username}} {{message}}</h2>
+<h3>Group Role: {{grouprole}}</h3>
+
+<button mat-raised-button color="primary" id="button" disabled={{AdminbuttonDisabled}} (click) = "groupadminButton()">Upgrade to a Group Admin</button>
+<button mat-raised-button color="link" id="button" disabled={{AssisbuttonDisabled}} (click) = "groupassisButton()">Upgrade to a Group Assis</button>
+
+
+
+</mat-card>

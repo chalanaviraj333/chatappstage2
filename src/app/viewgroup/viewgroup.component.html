@@ -1,26 +1,28 @@
 <app-header></app-header>
 
-<h1>Group Name:</h1>
+<mat-card>
+<h1>{{groupName}}</h1>
 
-<span><h3>Users in Group: </h3></span>
-<ul>
-    <li>Chalana</li>
-    <li>Chilini</li>
+<h3>Your Role:   {{userRole}}</h3>
+
+<hr>
+<h3>Users in Group: </h3>
+<ul style="display: inline-block;" *ngFor="let user of usersinGroup">
+    <li>{{user.username}}</li>  
 </ul>
-<span class="spacer"></span>
+
+<hr>
 
 <mat-card>
-    <mat-tab-group>
-  <mat-tab *ngFor="let channel of channels; let i = index"label={{channel.channelname}}> 
+    <mat-tab-group (selectedTabChange)="tabClick($event)">
+        <mat-tab *ngFor="let channel of channels; let i = index"label={{channel.channelname}}> 
 
-    <h2>Users in Channel</h2>
-            <mat-expansion-panel *ngFor="let user of users; let userIndex = index" hideToggle>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                {{user.username}}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <button mat-button color="warn" (click)="addUsers(i, userIndex)">Add User</button>
-            </mat-expansion-panel>
+          <h4>Users in Channel</h4>
+              <ul style="display: inline-block;" *ngFor="let user of usersinChannel">
+          <li>{{user.username}}</li>  
+       </ul>
+    <hr>
+    <button mat-raised-button color="primary" id="button" disabled="{{startchatbuuton}}" (click)="startChat()" >Start Chatting</button>
+           <!-- <app-chathistory></app-chathistory> -->
   </mat-tab>
 </mat-tab-group>

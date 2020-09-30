@@ -10,15 +10,15 @@
         <mat-expansion-panel *ngFor="let group of groups; let i = index" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-            {{group.groupname}}
+            {{group}}
             </mat-panel-title>
             <mat-panel-description>
-            {{group.groupAdmin}}
+            <!-- {{}} -->
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <button mat-button (click)="viewGroup(i)" >View Group</button>
-        <button mat-button (click)="editGroup(i)" >Edit Group</button>
-        <button mat-button color="warn" (click)="deleteGroup(i)">Delete Group</button>
+        <button mat-button class="btn1" (click)="viewGroup(i)" >View Group</button>
+        <!-- <button mat-button (click)="editGroup(i)" disabled={{editbuttonDisabled}}>Edit Group</button>
+        <button mat-button color="warn" (click)="deleteGroup(i)" disabled={{deletebuttonDisabled}}>Delete Group</button> -->
         </mat-expansion-panel>
     </mat-accordion>
 </mat-card>

@@ -20,3 +20,27 @@ li{
 .notin {
     color: saddlebrown;
 }
+
+#channelnamefield {
+    padding-top: 5em;
+    padding-left: 25%;
+    padding-right: 25%;
+    width: 50%;
+}
+
+#rolefield {
+    padding-top: 1em;
+    padding-right: 25%;
+    padding-left: 25%;
+    width: 50%;
+}
+
+
+#button {
+    
+    width: 40%;
+    margin-top: 2%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 5%;
+}

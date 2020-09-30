@@ -16,7 +16,7 @@
             </mat-select>
           </mat-form-field>
           
-        <button mat-raised-button color="primary" id="button" type="submit">Create</button>
+        <button mat-raised-button color="primary" id="button" type="submit" disabled={{channelCreate}}>Create</button>
 
     </form>
 
@@ -25,7 +25,7 @@
 
 <mat-card>
     <mat-accordion>
-        <mat-expansion-panel *ngFor="let channel of channels" hideToggle>
+        <mat-expansion-panel *ngFor="let channel of channels; let i = index" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
             {{channel.channelname}}
@@ -34,8 +34,7 @@
             {{channel.groupname}}
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <button mat-button>Edit Channel</button>
-        <button mat-button color="warn">Delete Channel</button>
+        <button mat-button color="warn" disabled={{deleteChannel}} (click)="onDeleteChannel(i)">Delete Channel</button>
         </mat-expansion-panel>
     </mat-accordion>
 </mat-card>

@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <form (submit)="onSubmit(chatForm)" #chatForm="ngForm">
     <mat-form-field id="messagefield" appearance="fill">
         <input matInput type="text" ngModel name="chatMessage" placeholder="Message" #messageInput="ngModel" required >
@@ -11,10 +13,10 @@
         <mat-expansion-panel *ngFor="let chat of chats" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
-            {{chat.chatUser}}
+            {{chat.username}}
             </mat-panel-title>
             <mat-panel-description>
-            {{chat.chatMessage}}
+            {{chat.chatmessage}}
             </mat-panel-description>
         </mat-expansion-panel-header>
         <p>this must be the date</p>
