@@ -3,9 +3,12 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { AuthserviceService } from '../authservice.service';
 import { NgForm } from '@angular/forms';
 
+import io from 'socket.io-client';
+
 import { HttpClient } from '@angular/common/http';
 import { Chat } from '../chat';
 
+const socket = io('http://localhost:3000');
 
 @Component({
   selector: 'app-chathistory',
@@ -33,10 +36,15 @@ export class ChathistoryComponent implements OnInit {
 
       const chatDetails = {channelname: this.channel, groupname: this.group};
 
-      this.http.post<{ message: string; chatList: Chat[] }>("http://localhost:3000/getchat", chatDetails)
-      .subscribe(data => {
-        this.chats = data.chatList;
-      })
+      socket.emit('sendMessage', chatDetails);
+
+
+      socket.on('chatmessage1', (res) => {
+        
+        this.chats = res;
+        
+      });
+      
 
   }
 

@@ -3,18 +3,22 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const socket = require('socket.io')
 
 const User = require('./models/user');
 const Group = require('./models/group');
 const Channel = require('./models/channel');
 const Chat = require('./models/chat');
 const GroupDetails = require('./models/groupdetails');
-const { response } = require('express');
-const { db } = require('./models/user');
-const { group } = require('console');
-const { query } = require('express');
+// const { response } = require('express');
+// const { db } = require('./models/user');
+// const { group } = require('console');
+// const { query } = require('express');
 // const { response } = require('express');
 // const { group } = require('console');
+
+let groupname = '';
+let channelname = '';
 
 mongoose.connect("mongodb+srv://viraj:yaPIjBvYDCZtmtcD@cluster0.mqa2r.mongodb.net/test?retryWrites=true&w=majority")
 .then(() => {
@@ -33,6 +37,48 @@ app.get('/',(req,res) =>
 {
     res.json({"test":"It is working"});
 })
+
+
+const server = app.listen(3000,() => {
+    console.log('App is listing in 3000');
+});
+
+const io = socket(server);
+
+io.sockets.on('connection', (socket) => {
+    console.log('new connection stablished');
+    sendData(socket);
+})
+
+// function sendData(socket){
+    
+//     const chat1 = 'chilini'
+//     socket.emit('chatmessage1', chat1)
+
+//     setTimeout(() => {
+//         sendData(socket);
+//     }, 3000);
+// }
+
+io.sockets.on('connection', function (socket) {
+    socket.on('sendMessage', function(data){
+        channelname = data.channelname;
+        groupname = data.groupname;
+    });   
+});
+
+function sendData(socket){
+    Chat.find({$and:[{channelname: channelname},{groupname: groupname}]})
+    .then(documents => {
+        socket.emit('chatmessage1', documents)
+    });
+
+    setTimeout(() => {
+    sendData(socket);
+    }, 100);
+
+}
+
 
 // ----- USER FUNTIONS -----
 
@@ -616,23 +662,6 @@ app.post('/createchat', (req,res) =>
     res.status(202).json({message: 'Chat saved Successfully'});
 });
 
-
-app.post('/getchat', (req,res) => {
-
-    const channelname = req.body.channelname;
-    const groupname = req.body.groupname;
-
-    Chat.find({$and:[{channelname: channelname},{groupname: groupname}]})
-    .then(documents => {
-        res.status(202).json({message: 'Chat list fetched Successfully',
-        chatList: documents
-        });
-    });
-});
-
-app.listen(3000,() => {
-    console.log('App is listing in 3000');
-})
 
 
 // yaPIjBvYDCZtmtcD
