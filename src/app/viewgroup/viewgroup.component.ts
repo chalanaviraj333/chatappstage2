@@ -26,7 +26,7 @@ export class ViewgroupComponent implements OnInit {
   userRole = '';
   userCheck: Usercheck;
   username = '';
-  startchatbuuton: boolean = true;
+  startchatbutton: boolean;
 
 
   constructor(private GroupService: GroupsService, private activatedroute: ActivatedRoute,
@@ -102,12 +102,15 @@ export class ViewgroupComponent implements OnInit {
     this.storage.set('channel', this.channels[clickIndex].channelname);
     this.http.post<{ message: string; usersList: User[] }>("http://localhost:3000/getChannelUsers", channelname)
     .subscribe(data => {
-      this.usersinChannel = data.usersList
+      this.usersinChannel = data.usersList;
+
+      this.startchatbutton = true;
 
     this.usersinChannel.forEach(user => {
         if (user.username == this.username)
         {
-          this.startchatbuuton = false;
+          console.log(this.username);
+          this.startchatbutton = false;
         }
       });
     });

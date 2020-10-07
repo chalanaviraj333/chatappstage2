@@ -42,7 +42,6 @@ export class ChathistoryComponent implements OnInit {
       socket.on('chatmessage1', (res) => {
         
         this.chats = res;
-        
       });
       
 

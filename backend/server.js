@@ -45,20 +45,6 @@ const server = app.listen(3000,() => {
 
 const io = socket(server);
 
-io.sockets.on('connection', (socket) => {
-    console.log('new connection stablished');
-    sendData(socket);
-})
-
-// function sendData(socket){
-    
-//     const chat1 = 'chilini'
-//     socket.emit('chatmessage1', chat1)
-
-//     setTimeout(() => {
-//         sendData(socket);
-//     }, 3000);
-// }
 
 io.sockets.on('connection', function (socket) {
     socket.on('sendMessage', function(data){
@@ -78,6 +64,11 @@ function sendData(socket){
     }, 100);
 
 }
+
+io.sockets.on('connection', (socket) => {
+    console.log('new connection stablished');
+    sendData(socket);
+})
 
 
 // ----- USER FUNTIONS -----
