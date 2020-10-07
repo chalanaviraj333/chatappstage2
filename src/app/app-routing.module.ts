@@ -11,6 +11,7 @@ import { EditgroupComponent } from './editgroup/editgroup.component';
 import { ViewgroupComponent } from './viewgroup/viewgroup.component';
 import { EdituserroleComponent } from './edituserrole/edituserrole.component';
 import { ChathistoryComponent } from './chathistory/chathistory.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'mainpage/:userID', component: MainpageComponent},
   {path: 'mainpage', component: MainpageComponent},
+  {path: 'myprofile', component: MyprofileComponent},
   {path: 'users', component: UsersComponent},
   {path: 'groups', component: GroupsComponent},
   {path: 'channels', component: ChannelsComponent},

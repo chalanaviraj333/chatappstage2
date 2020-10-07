@@ -6,7 +6,6 @@ import { NgForm } from '@angular/forms';
 import io from 'socket.io-client';
 
 import { HttpClient } from '@angular/common/http';
-import { Chat } from '../chat';
 
 const socket = io('http://localhost:3000');
 
@@ -43,6 +42,7 @@ export class ChathistoryComponent implements OnInit {
         
         this.chats = res;
       });
+
       
 
   }

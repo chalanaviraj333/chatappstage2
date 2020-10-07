@@ -11,6 +11,10 @@ import { User } from '../user.model';
 import { Usercheck } from '../usercheck';
 import { Userrole } from '../userrole';
 
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
+
 @Component({
   selector: 'app-viewgroup',
   templateUrl: './viewgroup.component.html',
@@ -64,7 +68,7 @@ export class ViewgroupComponent implements OnInit {
           this.http.post<{ message: string; grouprole: Userrole }>("http://localhost:3000/getGroupRole", this.userCheck)
           .subscribe(data => {
             const admins: Userrole = data.grouprole;
-            console.log(admins);
+
             if (data.grouprole == null)
             {
               this.userRole = 'Group User';
@@ -109,7 +113,7 @@ export class ViewgroupComponent implements OnInit {
     this.usersinChannel.forEach(user => {
         if (user.username == this.username)
         {
-          console.log(this.username);
+          //console.log(this.username);
           this.startchatbutton = false;
         }
       });
@@ -119,6 +123,7 @@ export class ViewgroupComponent implements OnInit {
 
   startChat(){
     this.router.navigateByUrl('/chathistory');
+    
   }
 
 }

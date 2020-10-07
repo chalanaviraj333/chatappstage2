@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<mat-card>
+    <img src="{{userpicture}}">
+    <br>
+    <form>
+        <input type="file" class="form-control" (change)="onFileSelected($event)" name="uploadfile" id="uploadfile" />
+        <br>
+        <button mat-raised-button color="primary" type="button" (click)="onUpload()">Change Photo</button>
+    </form>
+    <h1>User name: {{username}}</h1>
+
+</mat-card>

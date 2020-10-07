@@ -30,6 +30,7 @@ import { RemoveuserfromgroupComponent } from './removeuserfromgroup/removeuserfr
 import { EdituserroleComponent } from './edituserrole/edituserrole.component';
 import { RemoveuserchannelComponent } from './removeuserchannel/removeuserchannel.component';
 import { AddusertochannelComponent } from './addusertochannel/addusertochannel.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { AddusertochannelComponent } from './addusertochannel/addusertochannel.c
     RemoveuserfromgroupComponent,
     EdituserroleComponent,
     RemoveuserchannelComponent,
-    AddusertochannelComponent
+    AddusertochannelComponent,
+    MyprofileComponent
   ],
   imports: [
     BrowserModule,

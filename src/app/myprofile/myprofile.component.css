@@ -1,0 +1,24 @@
+mat-card {
+    width: 50%;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+img {
+    width: 30%;
+    height: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+}
+
+button {
+    margin-left: 2.5em;
+    margin-top: 1em;
+    width: 20%;
+    height: 6%;
+    font-size: 10px;
+
+}

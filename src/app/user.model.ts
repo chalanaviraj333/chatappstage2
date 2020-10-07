@@ -6,4 +6,5 @@ export interface User {
     password: string;
     groups: string[];
     channels: string[];
+    userpicture: string;
 }

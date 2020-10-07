@@ -28,7 +28,6 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
 
     const loggeddetails = {'loggeduser': this.storage.get('loggeduser')};
-    console.log(loggeddetails);
 
     // get all users from the database
     this.http.get<{ message: string; users: User[] }>("http://localhost:3000/getusers")

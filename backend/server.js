@@ -3,13 +3,19 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-const socket = require('socket.io')
+const socket = require('socket.io');
+const path = require('path');
 
 const User = require('./models/user');
 const Group = require('./models/group');
 const Channel = require('./models/channel');
 const Chat = require('./models/chat');
 const GroupDetails = require('./models/groupdetails');
+const formidable = require('formidable');
+const http = require('http').Server(app);
+
+app.use(express.static(path.join(__dirname, './src/assets/img/')));
+require('./routes/uploads.js')(app,formidable);
 // const { response } = require('express');
 // const { db } = require('./models/user');
 // const { group } = require('console');
@@ -17,8 +23,10 @@ const GroupDetails = require('./models/groupdetails');
 // const { response } = require('express');
 // const { group } = require('console');
 
+
 let groupname = '';
 let channelname = '';
+let username = '';
 
 mongoose.connect("mongodb+srv://viraj:yaPIjBvYDCZtmtcD@cluster0.mqa2r.mongodb.net/test?retryWrites=true&w=majority")
 .then(() => {
@@ -65,11 +73,10 @@ function sendData(socket){
 
 }
 
-io.sockets.on('connection', (socket) => {
-    console.log('new connection stablished');
+//testing user joined
+io.sockets.on('connection', function (socket) {
     sendData(socket);
-})
-
+});
 
 // ----- USER FUNTIONS -----
 
@@ -83,7 +90,8 @@ app.post('/usersignup',(req,res) =>
         userRole: req.body.userRole,
         password: req.body.password,
         groups: [],
-        channels: []
+        channels: [],
+        userpicture: req.body.userpicture
     });
     newUser.save();
     res.status(202).json({message: 'User Added Successfully'});
@@ -430,6 +438,17 @@ app.post('/addnewgrouptouser', (req,res) => {
     User.findOneAndUpdate(query, {$push: {groups: groupname}})
     .then(documents => {
         res.status(202).json({message: 'User group role changed successfully'});
+    });
+})
+
+app.post('/changeprofilepicture', (req,res) => {
+    const username = req.body.username;
+    const filename = req.body.filename;
+
+    const query = {username: username};
+    User.findOneAndUpdate(query, {$set: {userpicture: filename}})
+    .then(documents => {
+        res.status(202).json({message: 'User Profile Picture changed successfully'});
     });
 })
 

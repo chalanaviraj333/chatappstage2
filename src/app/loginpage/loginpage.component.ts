@@ -41,7 +41,6 @@ export class LoginpageComponent implements OnInit {
       const loginData = {username: form.value.username, password: form.value.password};
       this.http.post<{ message: string; validuser: User }>("http://localhost:3000/userlogin",loginData)
       .subscribe(data => {
-        console.log(data.validuser);
         if (typeof data.validuser!='undefined' && data.validuser)
         {
           this.storage.set('loggeduser', form.value.username);

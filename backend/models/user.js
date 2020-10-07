@@ -7,7 +7,8 @@ const userSchema = mongoose.Schema({
     userRole: {type: String, required: true},
     password: {type: String, required: true},
     groups: {type: Array},
-    channels: {type: Array}
+    channels: {type: Array},
+    userpicture: {type: String}
 });
 
 module.exports = mongoose.model('Users', userSchema);

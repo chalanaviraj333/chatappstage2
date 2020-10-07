@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
     else 
     {
         const userID = this.storage.get('userCount') + 1;
-        let user: User = {userID: userID, username: form.value.username, userRole: 'groupuser', email: form.value.email, password: form.value.password, groups: [], channels: []};
+        let user: User = {userID: userID, username: form.value.username, userRole: 'groupuser', email: form.value.email, password: form.value.password, groups: [], channels: [], userpicture: 'logo.png'};
         this.http.post<{ message: string }>("http://localhost:3000/usersignup", user)
         .subscribe(data => {
           console.log(data.message);
